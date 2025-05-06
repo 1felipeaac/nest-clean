@@ -10,7 +10,7 @@ const createAccountBodySchema = z.object({
     password: z.string()
 })
 
-type CreateAccoutBodySchema = z.infer<typeof createAccountBodySchema>
+export type CreateAccoutBodySchema = z.infer<typeof createAccountBodySchema>
 
 @Controller('/accounts')
 export class CreateAccountController{

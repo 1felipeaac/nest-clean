@@ -19,7 +19,6 @@ export class AuthenticateController{
         private prisma: PrismaService
     ){}
     @Post()
-    // @HttpCode(201)
     @UsePipes(new ZodValidationPipe(authenticateBodySchema))
     async handle(@Body() body: AuthenticateBodySchema){
 
