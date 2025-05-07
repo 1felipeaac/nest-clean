@@ -6,6 +6,7 @@ import { UserPayload } from "src/infra/auth/jwt.strategy";
 import { ZodValidationPipe } from "src/infra/http/pipes/zod-validation-pipe";
 import { PrismaService } from "src/infra/database/prisma/prisma.service";
 import { z } from "zod";
+import { CreateQuestionsUseCase } from "src/domain/forum/application/use-cases/create-question";
 const createquestionBodySchema = z.object({
     title: z.string(),
     content: z.string()
@@ -20,7 +21,7 @@ type CreateQuestionBodySchema = z.infer<typeof createquestionBodySchema>
 export class CreateQuestionController{
 
     constructor(
-        private prisma: PrismaService
+        private createQuestion: CreateQuestionsUseCase
     ){}
     @Post()
     async handle(
@@ -31,37 +32,12 @@ export class CreateQuestionController{
 
         const userId = user.sub
 
-        const slug = this.convertToSlug(title)
-
-        const questionWithSameSlug = await this.prisma.question.findUnique({
-            where: {
-                slug
-            }
-        })
-
-        if(questionWithSameSlug){
-            throw new ConflictException('Question with same slug already exists')
-        }
-
-        await this.prisma.question.create({
-            data: {
-                authorId: userId,
-                title,
-                content,
-                slug
-            }
+        await this.createQuestion.execute({
+            title,
+            content,
+            authorId: userId,
+            attachmentsIds: []
         })
     }
 
-    private convertToSlug(tittle: string): string {
-        return tittle
-            .normalize('NFKD')
-            .toLocaleLowerCase()
-            .trim()
-            .replace(/\s+/g, '-')
-            .replace(/[^\w-]+/g, '')
-            .replace(/_/g, '-')
-            .replace(/--+/g, '-')
-            .replace(/-$/g, '')
-    }
 }

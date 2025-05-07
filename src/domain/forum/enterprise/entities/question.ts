@@ -9,13 +9,13 @@ import { QuestionBestAnswerChoseEvent } from '../events/question-best-answer-cho
 
 export interface QuestionProps {
   authorId: UniqueEntityID
-  bestAnswerId?: UniqueEntityID
+  bestAnswerId?: UniqueEntityID | null
   title: string
   content: string
   slug: Slug
   attachments: QuestionAttachmentList
   createdAt: Date
-  updatedAt?: Date
+  updatedAt?: Date | null
 }
 
 export class Question extends AggregateRoot<QuestionProps> {
@@ -67,8 +67,8 @@ export class Question extends AggregateRoot<QuestionProps> {
     this.touch()
   }
 
-  set bestAnswerId(bestAnswerId: UniqueEntityID | undefined) {
-    if(bestAnswerId === undefined){
+  set bestAnswerId(bestAnswerId: UniqueEntityID | undefined | null) {
+    if(bestAnswerId === undefined || bestAnswerId === null){
       return
     }
 
