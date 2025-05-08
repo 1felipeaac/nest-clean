@@ -4,7 +4,6 @@ import { QuestionsRepository } from "src/domain/forum/application/repositories/q
 import { Question } from "src/domain/forum/enterprise/entities/question";
 import { PrismaService } from "../prisma.service";
 import { PrismaQuestionMapper } from "../mappers/prisma-question-mapper";
-import { da } from "@faker-js/faker/.";
 
 @Injectable()
 export class PrismaQuestionsRepository implements QuestionsRepository{
