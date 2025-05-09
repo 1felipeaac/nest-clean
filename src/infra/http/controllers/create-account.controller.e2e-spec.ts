@@ -3,6 +3,8 @@ import { AppModule } from "src/infra/app.module";
 import {Test} from "@nestjs/testing"
 import request from 'supertest'
 import { PrismaService } from "src/infra/database/prisma/prisma.service";
+import { QuestionFactory } from "test/factories/make-question";
+import { StudentFactory } from "test/factories/make-students";
 
 describe('Create account (E2E)', ()=>{
     let app: INestApplication;
