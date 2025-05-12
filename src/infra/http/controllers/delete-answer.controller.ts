@@ -2,27 +2,27 @@ import { BadRequestException, Controller, Delete, HttpCode,  Param } from "@nest
 import { CurrentUser } from "src/infra/auth/current-user-decorator";
 import { UserPayload } from "src/infra/auth/jwt.strategy";
 
-import { DeleteQuestionsUseCase } from "src/domain/forum/application/use-cases/delete-question";
+import { DeleteAnswersUseCase } from "src/domain/forum/application/use-cases/delete-answer";
 
 
-@Controller('/questions/:id')
-export class DeleteQuestionController{
+@Controller('/answers/:id')
+export class DeleteAnswerController{
 
     constructor(
-        private deleteQuestion: DeleteQuestionsUseCase
+        private deleteAnswer: DeleteAnswersUseCase
     ){}
     @Delete()
     @HttpCode(204)
     async handle(
         @CurrentUser() user: UserPayload, 
-        @Param('id') questionId: string
+        @Param('id') answerId: string
     ){
 
 
         const userId = user.sub
 
-        const result = await this.deleteQuestion.execute({
-            questionId,
+        const result = await this.deleteAnswer.execute({
+            answerId,
             authorId: userId
         })
 

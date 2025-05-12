@@ -2,31 +2,32 @@ import { BadRequestException, Controller, Delete, HttpCode,  Param } from "@nest
 import { CurrentUser } from "src/infra/auth/current-user-decorator";
 import { UserPayload } from "src/infra/auth/jwt.strategy";
 
-import { DeleteQuestionsUseCase } from "src/domain/forum/application/use-cases/delete-question";
+import { DeleteQuestionCommentsUseCase } from "src/domain/forum/application/use-cases/delete-question-comment";
 
 
-@Controller('/questions/:id')
-export class DeleteQuestionController{
+@Controller('/questions/comments/:id')
+export class DeleteQuestionCommentController{
 
     constructor(
-        private deleteQuestion: DeleteQuestionsUseCase
+        private deleteQuestionComment: DeleteQuestionCommentsUseCase
     ){}
     @Delete()
     @HttpCode(204)
     async handle(
         @CurrentUser() user: UserPayload, 
-        @Param('id') questionId: string
+        @Param('id') questionCommentId: string
     ){
 
 
         const userId = user.sub
 
-        const result = await this.deleteQuestion.execute({
-            questionId,
+        const result = await this.deleteQuestionComment.execute({
+            questionCommentId,
             authorId: userId
         })
 
         if(result.isLeft()){
+            console.log(result.value)
             throw new BadRequestException()
         }
     }
