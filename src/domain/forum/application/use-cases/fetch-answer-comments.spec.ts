@@ -1,16 +1,16 @@
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
 import { makeAnswerComment } from 'test/factories/make-answer-comment'
-import { FetchAnswerCommentUseCase } from './fetch-answer-comments'
+import { FetchAnswerCommentsUseCase } from './fetch-answer-comments'
 import { InMemoryAnswerCommentsRepository } from 'test/repositories/in-memory-answer-comments-repository'
 
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository
 //system under test
-let sut: FetchAnswerCommentUseCase
+let sut: FetchAnswerCommentsUseCase
 
 describe('Fecth Answer Comments', () => {
   beforeEach(() => {
     inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository()
-    sut = new FetchAnswerCommentUseCase(inMemoryAnswerCommentsRepository)
+    sut = new FetchAnswerCommentsUseCase(inMemoryAnswerCommentsRepository)
   })
 
   it('should be able to fetch answer comments', async () => {

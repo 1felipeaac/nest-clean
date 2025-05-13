@@ -4,6 +4,7 @@ import { AnswerComment } from '../../enterprise/entities/answer-comment'
 import { AnswerCommentsRepository } from '../repositories/answer-comments-repository'
 import { Either, left, right } from 'src/core/either'
 import { NotAllowedError } from 'src/core/errors/errors/not-allowed-error'
+import { Injectable } from '@nestjs/common'
 
 interface CommentOnAnswersUseCaseRequest {
   authorId: string,
@@ -15,6 +16,8 @@ type CommentOnAnswerUseCaseResponse = Either<NotAllowedError, {
     answerComment: AnswerComment
 }>
 
+
+@Injectable()
 export class CommentOnAnswersUseCase {
   constructor(
     private answerRepository: AnswersRepository,

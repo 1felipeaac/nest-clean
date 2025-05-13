@@ -29,6 +29,14 @@ import { CommentOnQuestionController } from "./controllers/comment-on-question.c
 import { CommentOnQuestionsUseCase } from "src/domain/forum/application/use-cases/comment-on-question";
 import { DeleteQuestionCommentController } from "./controllers/delete-question-comment.controller";
 import { DeleteQuestionCommentsUseCase } from "src/domain/forum/application/use-cases/delete-question-comment";
+import { CommentOnAnswerController } from "./controllers/comment-on-answer.controller";
+import { CommentOnAnswersUseCase } from "src/domain/forum/application/use-cases/comment-on-answer";
+import { DeleteAnswerCommentController } from "./controllers/delete-answer-comment.controller";
+import { DeleteAnswerCommentsUseCase } from "src/domain/forum/application/use-cases/delete-answer-comment";
+import { FetchQuestionCommentsController } from "./controllers/fetch-question-comments.controller";
+import { FetchQuestionCommentsUseCase } from "src/domain/forum/application/use-cases/fetch-question-comments";
+import { FetchAnswerCommentsController } from "./controllers/fetch-answer-comments.controller";
+import { FetchAnswerCommentsUseCase } from "src/domain/forum/application/use-cases/fetch-answer-comments";
 
 @Module({
     imports: [DatabaseModule, CryptographyModule],
@@ -46,7 +54,11 @@ import { DeleteQuestionCommentsUseCase } from "src/domain/forum/application/use-
         FetchQuestionAnswersController,
         ChooseQuestionBestAnswerController,
         CommentOnQuestionController, 
-        DeleteQuestionCommentController
+        DeleteQuestionCommentController,
+        CommentOnAnswerController,
+        DeleteAnswerCommentController,
+        FetchQuestionCommentsController,
+        FetchAnswerCommentsController
     ],
     providers: [
         CreateQuestionsUseCase,
@@ -62,7 +74,11 @@ import { DeleteQuestionCommentsUseCase } from "src/domain/forum/application/use-
         FetchQuestionAnswersUseCase,
         ChooseQuestionBestAnswersUseCase,
         CommentOnQuestionsUseCase,
-        DeleteQuestionCommentsUseCase
+        DeleteQuestionCommentsUseCase,
+        CommentOnAnswersUseCase,
+        DeleteAnswerCommentsUseCase,
+        FetchQuestionCommentsUseCase,
+        FetchAnswerCommentsUseCase,
     ]
 })
 export class HttpModule{}
