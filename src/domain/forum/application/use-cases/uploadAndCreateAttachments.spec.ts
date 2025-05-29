@@ -1,18 +1,18 @@
 import { InMemoryAttachmentsRepository } from "test/repositories/in-memory-attachments-repository"
-import { UpdateAndCreateAttachmentsUseCase } from "./uploadAndCreateAttachments"
+import { UploadAndCreateAttachmentsUseCase } from "./uploadAndCreateAttachments"
 import { FakeUploader } from "test/storage/fake-uploader"
-import { InvalidAttchementTypeError } from "./errors/invalid-attachment-type"
+import { InvalidAttchmentTypeError } from "./errors/invalid-attachment-type"
 
 let inMemoryAttachmentRepository: InMemoryAttachmentsRepository
 //system under test
-let sut: UpdateAndCreateAttachmentsUseCase
+let sut: UploadAndCreateAttachmentsUseCase
 let fakeUploader: FakeUploader
 
 describe('Update and Create ', () => {
   beforeEach(() => {
     inMemoryAttachmentRepository = new InMemoryAttachmentsRepository()
     fakeUploader = new FakeUploader()
-    sut = new UpdateAndCreateAttachmentsUseCase(inMemoryAttachmentRepository, fakeUploader)
+    sut = new UploadAndCreateAttachmentsUseCase(inMemoryAttachmentRepository, fakeUploader)
   })
   it('should be able upload and create attachment', async () => {
       
@@ -45,7 +45,7 @@ describe('Update and Create ', () => {
 
   
        expect(result.isLeft()).toBe(true)
-       expect(result.value).toBeInstanceOf(InvalidAttchementTypeError)
+       expect(result.value).toBeInstanceOf(InvalidAttchmentTypeError)
   })
 
 })

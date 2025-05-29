@@ -1,6 +1,6 @@
 import { Either, left, right } from 'src/core/either'
 import { Injectable } from '@nestjs/common'
-import { InvalidAttchementTypeError } from './errors/invalid-attachment-type'
+import { InvalidAttchmentTypeError } from './errors/invalid-attachment-type'
 import { Attachment } from '../../enterprise/entities/attachment'
 import { AttachmentsRepository } from '../repositories/attachments-repository'
 import { Uploader } from '../storage/uploader'
@@ -11,12 +11,12 @@ interface UpdateAndCreateAttachmentsUseCaseRequest {
   body: Buffer
 }
 
-type UpdateAndCreateAttachmentsUseCaseResponse = Either< InvalidAttchementTypeError, {
+type UpdateAndCreateAttachmentsUseCaseResponse = Either< InvalidAttchmentTypeError, {
     attachment: Attachment
 }>
 
 @Injectable()
-export class UpdateAndCreateAttachmentsUseCase {
+export class UploadAndCreateAttachmentsUseCase {
   constructor(
     private attachmentRepository: AttachmentsRepository,
     private uploader: Uploader
@@ -28,7 +28,7 @@ export class UpdateAndCreateAttachmentsUseCase {
   }: UpdateAndCreateAttachmentsUseCaseRequest): Promise<UpdateAndCreateAttachmentsUseCaseResponse> {
 
     if (!/^(image\/(png|jpeg)|application\/pdf)$/.test(fileType)) {
-        return left(new InvalidAttchementTypeError(fileType))
+        return left(new InvalidAttchmentTypeError(fileType))
       }
 
     const {url} = await this.uploader.upload({
