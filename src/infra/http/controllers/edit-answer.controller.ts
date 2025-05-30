@@ -6,7 +6,8 @@ import { ZodValidationPipe } from "src/infra/http/pipes/zod-validation-pipe";
 import { z } from "zod";
 import { EditAnswersUseCase } from "src/domain/forum/application/use-cases/edit-answer";
 const editanswerBodySchema = z.object({
-    content: z.string()
+    content: z.string(),
+    attachments: z.array(z.string().uuid()).default([])
 })
 
 const bodyValidationPipe = new ZodValidationPipe(editanswerBodySchema)
@@ -26,14 +27,14 @@ export class EditAnswerController{
         @Body(bodyValidationPipe) body: EditAnswerBodySchema,
         @Param('id') answerId: string
     ){
-        const { content } = body
+        const { content, attachments } = body
 
         const userId = user.sub
 
         const result = await this.editAnswer.execute({
             content,
             authorId: userId,
-            attachmentsIds: [],
+            attachmentsIds: attachments,
             answerId
         })
 

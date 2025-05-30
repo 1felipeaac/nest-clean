@@ -6,7 +6,8 @@ import { ZodValidationPipe } from "src/infra/http/pipes/zod-validation-pipe";
 import { z } from "zod";
 import { AnswerQuestionsUseCase } from "src/domain/forum/application/use-cases/answer-question";
 const answerquestionBodySchema = z.object({
-    content: z.string()
+    content: z.string(),
+    attachments: z.array(z.string().uuid())
 })
 
 const bodyValidationPipe = new ZodValidationPipe(answerquestionBodySchema)
@@ -25,7 +26,7 @@ export class AnswerQuestionController{
         @Body(bodyValidationPipe) body: AnswerQuestionBodySchema,
         @Param('questionId') questionId: string
     ){
-        const { content } = body
+        const { content, attachments } = body
 
         const userId = user.sub
 
@@ -33,7 +34,7 @@ export class AnswerQuestionController{
             content,
             questionId,
             authorId: userId,
-            attachmentsIds: []
+            attachmentsIds: attachments
         })
 
         if(result.isLeft()){

@@ -106,5 +106,6 @@ export abstract class WatchedList<T> {
       this.currentItems = items
       this.new = newItems
       this.removed = removedItems
+
     }
   }

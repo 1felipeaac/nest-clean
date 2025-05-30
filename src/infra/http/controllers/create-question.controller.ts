@@ -8,7 +8,8 @@ import { z } from "zod";
 import { CreateQuestionsUseCase } from "src/domain/forum/application/use-cases/create-question";
 const createquestionBodySchema = z.object({
     title: z.string(),
-    content: z.string()
+    content: z.string(),
+    attachments: z.array(z.string().uuid())
 })
 
 const bodyValidationPipe = new ZodValidationPipe(createquestionBodySchema)
@@ -26,7 +27,7 @@ export class CreateQuestionController{
         @CurrentUser() user: UserPayload, 
         @Body(bodyValidationPipe) body: CreateQuestionBodySchema
     ){
-        const { title, content } = body
+        const { title, content, attachments } = body
 
         const userId = user.sub
 
@@ -34,7 +35,7 @@ export class CreateQuestionController{
             title,
             content,
             authorId: userId,
-            attachmentsIds: []
+            attachmentsIds: attachments
         })
 
         if(result.isLeft()){
