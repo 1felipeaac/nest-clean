@@ -27,7 +27,6 @@ export class DeleteQuestionCommentController{
         })
 
         if(result.isLeft()){
-            console.log(result.value)
             throw new BadRequestException()
         }
     }
