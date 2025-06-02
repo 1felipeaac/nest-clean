@@ -5,6 +5,7 @@ import { QuestionComment } from "src/domain/forum/enterprise/entities/question-c
 import { PrismaService } from "../prisma.service";
 import { PrismaQuestionCommentMapper } from "../mappers/prisma-question-comments-mapper";
 import { CommentWithAuthor } from "src/domain/forum/enterprise/entities/value-objects/comment-with-author";
+import { PrismaCommentWithAuthorMapper } from "../mappers/prisma-comment-with-author-mapper";
 
 @Injectable()
 export class PrismaQuestionCommentsRepository implements QuestionCommentsRepository{
@@ -68,7 +69,7 @@ export class PrismaQuestionCommentsRepository implements QuestionCommentsReposit
             skip: (page - 1) * 20
          })
  
-         return questions.map(PrismaQuestionCommentMapper.toDomain)
+         return questions.map(PrismaCommentWithAuthorMapper.toDomain)
     }
 
 }

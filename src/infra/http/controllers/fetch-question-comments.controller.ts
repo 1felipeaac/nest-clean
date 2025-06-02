@@ -2,7 +2,7 @@ import { BadRequestException, Controller, Get, Param, Query } from "@nestjs/comm
 import { ZodValidationPipe } from "src/infra/http/pipes/zod-validation-pipe";
 import { z } from "zod";
 import { FetchQuestionCommentsUseCase } from "src/domain/forum/application/use-cases/fetch-question-comments";
-import { CommentPresenter } from "../presenters/comment-presenter";
+import { CommentWithAuthorPresenter } from "../presenters/comment-with-author-presenter";
 
 const pageQueryParamns = z
     .string()
@@ -37,8 +37,8 @@ export class FetchQuestionCommentsController{
             throw new BadRequestException()
         }
 
-        const questionComments = result.value.questionComments
+        const comments = result.value.comments
 
-        return {comments: questionComments.map(CommentPresenter.toHTTP)}
+        return {comments: comments.map(CommentWithAuthorPresenter.toHTTP)}
     }
 }
