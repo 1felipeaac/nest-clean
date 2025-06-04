@@ -4,9 +4,13 @@ import { InMemoryQuestionCommentsRepository } from 'test/repositories/in-memory-
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
 import { CommentOnQuestionsUseCase } from './comment-on-question'
 import { makeQuestion } from 'test/factories/make-question'
+import { InMemoryAttachmentsRepository } from 'test/repositories/in-memory-attachments-repository'
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository'
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository
+let inMemoryStudentsRepository: InMemoryStudentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 //system under test
 let sut: CommentOnQuestionsUseCase
@@ -14,8 +18,13 @@ let sut: CommentOnQuestionsUseCase
 describe('Comment on question', () => {
   beforeEach(() => {
     inMemoryQuestionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository()
-    inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository()
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository)
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository()
+    inMemoryStudentsRepository = new InMemoryStudentsRepository()
+    inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository(inMemoryStudentsRepository)
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository)
     sut = new CommentOnQuestionsUseCase(inMemoryQuestionsRepository,inMemoryQuestionCommentsRepository)
   })
   it('should be able to comment on question', async () => {
