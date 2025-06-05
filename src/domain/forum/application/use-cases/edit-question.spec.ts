@@ -121,7 +121,6 @@ describe('Edit Question', () => {
     })
 
     expect(result.isRight()).toBe(true)
-    inMemoryQuestionAttachmentsRepository.items.map(item => console.log(item))
     expect(inMemoryQuestionAttachmentsRepository.items).toHaveLength(2)
     expect(inMemoryQuestionAttachmentsRepository.items).toEqual(
       expect.arrayContaining([
