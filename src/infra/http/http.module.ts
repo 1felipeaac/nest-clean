@@ -10,7 +10,7 @@ import { RegisterStudentsUseCase } from "src/domain/forum/application/use-cases/
 import { AuthenticateStudentsUseCase } from "src/domain/forum/application/use-cases/authenticate-student";
 import { CryptographyModule } from "../cryptography/cryptography.module";
 import { GetQuestionBySlugUseCase } from "src/domain/forum/application/use-cases/get-question-by-slug";
-import { GetQuestionbySlugController } from "./controllers/get-question-by-slug.controller";
+import { GetQuestionBySlugController } from "./controllers/get-question-by-slug.controller";
 import { EditQuestionController } from "./controllers/edit-question.controller";
 import { EditQuestionsUseCase } from "src/domain/forum/application/use-cases/edit-question";
 import { DeleteQuestionController } from "./controllers/delete-question.controller";
@@ -48,7 +48,7 @@ import { StorageModule } from "../storage/storage.module";
         AuthenticateController, 
         CreateQuestionController, 
         FetchRecentQuestionsController,
-        GetQuestionbySlugController, 
+        GetQuestionBySlugController, 
         EditQuestionController,
         DeleteQuestionController,
         AnswerQuestionController,
